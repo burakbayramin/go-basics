@@ -11,6 +11,20 @@ func main() {
 	receive(even, odd, quit)
 
 	fmt.Println("program finished with success")
+
+	/////////
+
+	c := make(chan int)
+
+	go func() {
+		c <- 42
+		close(c)
+	}()
+
+	v, ok := <-c
+	fmt.Println(v, ok)
+	v, ok = <-c
+	fmt.Println(v, ok)
 }
 
 func send(e, o chan<- int, q chan<- bool) {
